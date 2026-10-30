@@ -10,7 +10,6 @@ def show_project_info():
     print('Features number:', len(features))
     for feature in features:
         print(feature)
-    pass
 
 if __name__ == '__main__':
     show_project_info()
