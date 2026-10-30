@@ -14,16 +14,16 @@ def show_project_info():
     print('Features number:', len(features))
     for feature in features:
         print(feature)
-    print()  # 仅空一行，和后面内容隔开
+    print()
 
 if __name__ == '__main__':
     show_project_info()
     iris = load_iris()
     print("Feature names：", iris.feature_names)
     print("Data shape：", iris.data.shape)
-    print("Class names：", iris.target_names)
-    print("Class shape：", iris.target.shape)
+    print("Label names：", iris.target_names)
+    print("Label shape：", iris.target.shape)
 
     print("Labels of 50 to 60th：", iris.target[50:60])
-    print("Sample feature at 0：", iris.data[0])
-    print("Sample class at 0：", iris.target_names[iris.target[0]])
+    print("Sample data at 0：", iris.data[0])
+    print("Sample label at 0：", iris.target_names[iris.target[0]])
