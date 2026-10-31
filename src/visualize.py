@@ -82,12 +82,13 @@ labels = iris.target #target/label
 # ==================== 第三部分：提取绘图数据 ====================
 
 # TODO 6：从 X 中提取 petal length (cm)，保存为变量 x
-x = X["petal length (cm)"]
+# x = X["petal length (cm)"]
+x = X["sepal length (cm)"]
 # print(x)
 # print(x.shape)
 # TODO 7：从 X 中提取 petal width (cm)，保存为变量 y
-y = X["petal width (cm)"]
-
+# y = X["petal width (cm)"]
+y = X["sepal width (cm)"]
 # ==================== 第四部分：绘制分类散点图 ====================
 
 # TODO 8：使用 for 循环遍历三种花的名称
@@ -97,6 +98,7 @@ for i, name in enumerate(iris.target_names):
     # TODO 9：创建布尔索引 mask
     # 要求：筛选出标签等于当前类别编号 i 的样本
     mask = labels == i
+    # print(type(mask))
     # TODO 10：绘制当前类别的散点图
     # 要求：
     # ① 使用 x[mask] 作为横轴数据
@@ -107,9 +109,11 @@ for i, name in enumerate(iris.target_names):
 # ==================== 第五部分：完善图表 ====================
 
 # TODO 11：设置横轴名称为 Petal Length (cm)
-plt.xlabel("petal length (cm)")
+# plt.xlabel("petal length (cm)")
+plt.xlabel("sepal length (cm)")
 # TODO 12：设置纵轴名称为 Petal Width (cm)
-plt.ylabel("petal width (cm)")
+# plt.ylabel("petal width (cm)")
+plt.ylabel("sepal width (cm)")
 # TODO 13：设置图表标题为 Iris Flower Classification
 plt.title("Iris Flower Classification")
 # TODO 14：显示三个类别的图例
