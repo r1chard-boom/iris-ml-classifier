@@ -5,6 +5,10 @@ from src.data_loader import load_and_split_data
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 
+import joblib
+from pathlib import Path
+import numpy as np
+
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import classification_report
@@ -184,6 +188,48 @@ def main():
      '''
     pipeline.fit(X_train, y_train)
 
+    # ==========================================
+    # Day 7 第一阶段：保存训练好的Pipeline
+    # ==========================================
+
+    # 在train.py文件顶部导入：
+    # import joblib
+    # from pathlib import Path
+
+    # 创建一个模型文件路径
+    # models/iris_pipeline.joblib
+
+    # 1. 获取项目根目录
+    PROJECT_ROOT = Path(__file__).resolve().parent.parent
+    print(PROJECT_ROOT)
+    # 2. 构建模型保存路径
+    model_path = PROJECT_ROOT / "models" / "iris_pipeline.joblib"
+
+    # 确保models文件夹存在
+    # 提示：model_path.parent.mkdir(...)
+    model_path.parent.mkdir(parents=True, exist_ok=True)
+
+    # 使用joblib.dump()保存训练好的pipeline
+    # 提示：需要传入两个参数：
+    # ① 已训练好的pipeline
+    # ② 保存位置model_path
+    joblib.dump(pipeline, model_path)
+
+    # 打印模型保存路径，方便检查
+    print("model saved: {}".format(model_path))
+
+    # 使用joblib.load()加载保存的模型
+    loaded_pipeline = joblib.load(model_path)
+
+    # 使用加载后的模型预测X_test
+    loaded_pred = loaded_pipeline.predict(X_test)
+
+    # 打印加载后的前10个预测标签
+    print("前10个预测标签:", loaded_pred[:10])
+    # 比较loaded_pred与之前的pipeline_pred是否完全相同
+    results = np.array_equal(loaded_pred, pipeline.predict(X_test))
+    print("loaded_pred与之前的pipeline_pred是否相同:", results)
+
     # 使用pipeline.predict()预测X_test
     # 把结果保存到pipeline_pred
     '''
@@ -193,7 +239,7 @@ def main():
      第二步：LogisticRegression.predict(): 使用训练好的分类器进行预测
      '''
     pipeline_pred = pipeline.predict(X_test)
-
+    # print(pipeline_pred)
 
     # 使用accuracy_score()计算新模型准确率
     pipeline_accuracy = accuracy_score(y_test, pipeline_pred)
